@@ -3,8 +3,8 @@
     % close all
 
     % create arduino object
-a = arduino('COM7','Mega2560'); % Right USB
- 
+a = arduino('COM5','Mega2560'); % Right USB
+
 sensorPin = 'A0';
 ledPin = 'D13';
 sensorValue = 0;
