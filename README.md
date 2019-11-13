@@ -1,5 +1,8 @@
 # I4H_DDR
 
+
+Songs will never slow down, for a "slower" map we just remove some of the generated notes. This way we only need to make one map per song
+
 ## HitOBjects
 
 key, offset, endoffset
