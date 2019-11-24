@@ -41,11 +41,11 @@ public class PauseMenu : MonoBehaviour
 
     public void Retry()
     {
-
+        SceneManager.LoadScene("Game");
     }
 
     public void LoadMenu()
     {
-        SceneManager.LoadScene("Ranking Panel");
+        SceneManager.LoadScene("SongSelect");
     }
 }

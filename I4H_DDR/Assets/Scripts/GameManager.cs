@@ -20,10 +20,9 @@ public class GameManager : MonoBehaviour
     public List<HitObject> hitObjectsList = new List<HitObject>();
     int hitObjectIndex;
     
-    // Keep track o
+    // Keep track of score and number of hits
     public double score;
     private double noteBaseScore;
-    
     public int numGoodHit;
     public int numGreatHit;
     public int numPerfectHit;
@@ -117,7 +116,7 @@ public class GameManager : MonoBehaviour
         // If the song is over then go to the RankingPanel
         if (timer >= songLength)
         {
-            SceneManager.LoadScene("RankingPanel");
+            SceneManager.LoadScene("Results");
         }
 
     }
