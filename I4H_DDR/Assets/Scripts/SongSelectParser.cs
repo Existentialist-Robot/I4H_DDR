@@ -106,7 +106,7 @@ public class SongSelectParser : MonoBehaviour
         }
         else
         {
-            audioSource.clip = Resources.Load<AudioClip>(song["SongPreview"]);
+            audioSource.clip = Resources.Load<AudioClip>(song["SongFile"]);
             audioSource.Play();
             selectedSong = song;
         }
@@ -128,8 +128,7 @@ public class SongSelectParser : MonoBehaviour
             {
                 ["SongMap"] = songMap,
                 ["Selected"] = "false",
-                ["SongPreview"] = audioFile,
-                ["SongLength"] = (songLength / 60).ToString() + ":" + (songLength % 60).ToString(),
+                ["SongFile"] = audioFile,
                 ["CoverPhoto"] = coverFile
             };
 
