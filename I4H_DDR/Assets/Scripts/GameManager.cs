@@ -153,4 +153,24 @@ public class GameManager : MonoBehaviour
         beatmap.Close();
     }
 
+    public void NoteHit(int hitType)
+    {
+        if (hitType == 1)
+        {
+            numGoodHit++;
+            score += 100;
+        }
+        else if (hitType == 2)
+        {
+            numGreatHit++;
+            score += 300;
+        }
+        else if (hitType == 3)
+        {
+            numPerfectHit++;
+            score += 500;
+        }
+        
+    }
+
 }
