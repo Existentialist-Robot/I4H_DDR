@@ -27,19 +27,19 @@ public class NoteObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "goodHitbox")
+        if (collision.tag == "PerfectHitBox")
         {
-            hitType = 1;
+            hitType = 3;
             hit = true;
         }
-        else if (collision.tag == "greatHitBox")
+        else if (collision.tag == "GreatHitBox")
         {
             hitType = 2;
             hit = true;
         }
-        else if (collision.tag == "perfectHitBox")
+        else if (collision.tag == "GoodHitbox")
         {
-            hitType = 3;
+            hitType = 1;
             hit = true;
         }
         else if(collision.tag == "despawner")
@@ -50,7 +50,7 @@ public class NoteObject : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "goodHitBox")
+        if (collision.tag == "GoodHitBox")
         {
             hit = false;
             hitType = 0;

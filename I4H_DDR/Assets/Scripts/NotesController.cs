@@ -21,58 +21,58 @@ public class NotesController : MonoBehaviour
 
     void spawnLeftArrow()
     {
-        var currentRing = Instantiate(leftArrow, leftSpawner.position, leftSpawner.rotation);
-        currentRing.transform.SetParent(parentObject.transform);
-        currentRing.transform.localScale = new Vector2(1.15f, 0.85f);
+        var currentArrow = Instantiate(leftArrow, leftSpawner.position, leftSpawner.rotation);
+        currentArrow.transform.SetParent(parentObject.transform);
+        //currentArrow.transform.localScale = new Vector3(1.15f, 0.85f, 0f);
     }
 
     void spawnDownLeftArrow()
     {
-        var currentRing = Instantiate(downLeftArrow, leftSpawner.position, leftSpawner.rotation);
-        currentRing.transform.SetParent(parentObject.transform);
-        currentRing.transform.localScale = new Vector2(1.15f, 0.85f);
+        var currentArrow = Instantiate(downLeftArrow, leftSpawner.position, leftSpawner.rotation);
+        currentArrow.transform.SetParent(parentObject.transform);
+        //currentArrow.transform.localScale = new Vector3(1.15f, 0.85f, 0f);
     }
 
     void spawnUpLeftArrow()
     {
-        var currentRing = Instantiate(upLeftArrow, leftSpawner.position, leftSpawner.rotation);
-        currentRing.transform.SetParent(parentObject.transform);
-        currentRing.transform.localScale = new Vector2(1.15f, 0.85f);
+        var currentArrow = Instantiate(upLeftArrow, leftSpawner.position, leftSpawner.rotation);
+        currentArrow.transform.SetParent(parentObject.transform);
+        //currentArrow.transform.localScale = new Vector3(1.15f, 0.85f, 0f);
     }
 
     void spawnUpArrow()
     {
-        var currentRing = Instantiate(upArrow, upSpawner.position, upSpawner.rotation);
-        currentRing.transform.SetParent(parentObject.transform);
-        currentRing.transform.localScale = new Vector2(1.0f, 0.85f);
+        var currentArrow = Instantiate(upArrow, upSpawner.position, upSpawner.rotation);
+        currentArrow.transform.SetParent(parentObject.transform);
+        //currentArrow.transform.localScale = new Vector3(1.0f, 0.85f, 0f);
     }
 
     void spawnDownArrow()
     {
-        var currentRing = Instantiate(downArrow, downSpawner.position, downSpawner.rotation);
-        currentRing.transform.SetParent(parentObject.transform);
-        currentRing.transform.localScale = new Vector2(1.0f, 0.85f);
+        var currentArrow = Instantiate(downArrow, downSpawner.position, downSpawner.rotation);
+        currentArrow.transform.SetParent(parentObject.transform);
+        //currentArrow.transform.localScale = new Vector3(1.0f, 0.85f, 0f);
     }
 
     void spawnUpRightArrow()
     {
-        var currentRing = Instantiate(upRightArrow, rightSpawner.position, rightSpawner.rotation);
-        currentRing.transform.SetParent(parentObject.transform);
-        currentRing.transform.localScale = new Vector2(1.15f, 0.85f);
+        var currentArrow = Instantiate(upRightArrow, rightSpawner.position, rightSpawner.rotation);
+        currentArrow.transform.SetParent(parentObject.transform);
+        //currentArrow.transform.localScale = new Vector3(1.15f, 0.85f, 0f);
     }
 
     void spawnDownRightArrow()
     {
-        var currentRing = Instantiate(downRightArrow, rightSpawner.position, rightSpawner.rotation);
-        currentRing.transform.SetParent(parentObject.transform);
-        currentRing.transform.localScale = new Vector2(1.15f, 0.85f);
+        var currentArrow = Instantiate(downRightArrow, rightSpawner.position, rightSpawner.rotation);
+        currentArrow.transform.SetParent(parentObject.transform);
+        //currentArrow.transform.localScale = new Vector3(1.15f, 0.85f, 0f);
     }
 
     void spawnRightArrow()
     {
-        var currentRing = Instantiate(RightArrow, rightSpawner.position, rightSpawner.rotation);
-        currentRing.transform.SetParent(parentObject.transform);
-        currentRing.transform.localScale = new Vector2(1.15f, 0.85f);
+        var currentArrow = Instantiate(RightArrow, rightSpawner.position, rightSpawner.rotation);
+        currentArrow.transform.SetParent(parentObject.transform);
+        //currentArrow.transform.localScale = new Vector3(1.15f, 0.85f, 0f);
     }
 
     public void spawnNotes(HitObject hitObject, string[] configuration)

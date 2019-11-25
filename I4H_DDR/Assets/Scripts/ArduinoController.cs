@@ -5,12 +5,15 @@ using System.IO.Ports;
 
 public class ArduinoController : MonoBehaviour
 {
+    public static ArduinoController Instance;
+
     public string portName;
     SerialPort arduino;
     private string[] configTiles;
 
     void Start()
     {
+        Instance = this;
         arduino = new SerialPort(portName, 9600);
         arduino.Open();
     }

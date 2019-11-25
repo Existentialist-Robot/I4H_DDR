@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public GameObject noteController;
     public AudioSource audioSource;
-    public GameObject arduinoController;
 
     // Used to determine song end
     private float songLength;
@@ -37,10 +36,10 @@ public class GameManager : MonoBehaviour
         // Get difficulty and configuration here
         difficulty = 4;
         configuration = new string[] { "1", "5", "3", "7" };
-        arduinoController.GetComponent<ArduinoController>().SendConfiguration(configuration);
+        //ArduinoController.Instance.SendConfiguration(configuration);
 
         // Change GameState from "Loading" to "Game on"
-        arduinoController.GetComponent<ArduinoController>().UpdateGameState();
+        //ArduinoController.Instance.UpdateGameState();
     }
 
     // Start is called before the first frame update
@@ -48,7 +47,7 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         // Change GameState from "Idle" to "Loading"
-        arduinoController.GetComponent<ArduinoController>().UpdateGameState();
+        //ArduinoController.Instance.UpdateGameState();
         LoadConfiguration();
 	
         LoadSong();
@@ -105,8 +104,8 @@ public class GameManager : MonoBehaviour
         if (timer >= songLength)
         {
             // Set the game state from "Game on" to "Idle"
-            arduinoController.GetComponent<ArduinoController>().UpdateGameState();
-            SceneManager.LoadScene("Results");
+            //ArduinoController.Instance.UpdateGameState();
+            //SceneManager.LoadScene("Results");
         }
 
     }
@@ -115,7 +114,9 @@ public class GameManager : MonoBehaviour
     {
         Dictionary<string, string> song = SongSelectParser.Instance.selectedSong;
         string filename = song["SongMap"];
+        Debug.Log(song["SongFile"]);
         AudioClip audio = Resources.Load<AudioClip>(song["SongFile"]);
+        Debug.Log("Audio Length " + audio.length);
         songLength = audio.length;
         audioSource.PlayOneShot(audio);
 
