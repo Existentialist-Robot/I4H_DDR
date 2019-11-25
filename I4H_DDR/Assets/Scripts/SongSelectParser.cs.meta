@@ -3,7 +3,14 @@ guid: 400c2b9c4d06783419a40d74111a93e9
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - scrollView: {instanceID: 0}
+  - scrollContent: {instanceID: 0}
+  - scrollItemPrefab: {fileID: 7634987684407174286, guid: 1f5e32f2bae6f9044b92c8fbd995c831,
+      type: 3}
+  - audioSource: {instanceID: 0}
+  - infoContent: {instanceID: 0}
+  - songDetailPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
