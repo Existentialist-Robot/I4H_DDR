@@ -71,15 +71,16 @@ public class SongSelectParser : MonoBehaviour
         
         GameObject songInfo = Instantiate(songDetailPrefab);
         songInfo.transform.SetParent(infoContent.transform,false);
-
+        
         songInfo.transform.Find("CoverPhoto").gameObject.GetComponent<RawImage>().texture = Resources.Load<Texture>(song["CoverPhoto"]);
         songInfo.transform.Find("SongLength").gameObject.GetComponent<TextMeshProUGUI>().text = "Song Length: " + song["SongLength"];
         songInfo.transform.Find("MapLength").gameObject.GetComponent<TextMeshProUGUI>().text = "Map Length: " + song["MapLength"];
-        songInfo.transform.Find("Bpm").gameObject.GetComponent<TextMeshProUGUI>().text = "Max BPM: " + song["MaxBpm"];
-        songInfo.transform.Find("MemorySegments").gameObject.GetComponent<TextMeshProUGUI>().text = "Memory Segments: " + song["MemorySegments"];
-        songInfo.transform.Find("HpDrain").gameObject.GetComponent<TextMeshProUGUI>().text = "HP Drain: " + song["HPDrainRate"];
-        songInfo.transform.Find("OverallDifficulty").gameObject.GetComponent<TextMeshProUGUI>().text = "Overall Difficulty: " + song["OverallDifficulty"];
-        songInfo.transform.Find("ApproachRate").gameObject.GetComponent<TextMeshProUGUI>().text = "Scroll Speed: " + song["ApproachRate"];
+        //songInfo.transform.Find("Bpm").gameObject.GetComponent<TextMeshProUGUI>().text = "Max BPM: " + song["MaxBpm"];
+        // songInfo.transform.Find("MemorySegments").gameObject.GetComponent<TextMeshProUGUI>().text = "Memory Segments: " + song["MemorySegments"];
+        // songInfo.transform.Find("HpDrain").gameObject.GetComponent<TextMeshProUGUI>().text = "HP Drain: " + song["HPDrainRate"];
+        // songInfo.transform.Find("OverallDifficulty").gameObject.GetComponent<TextMeshProUGUI>().text = "Overall Difficulty: " + song["OverallDifficulty"];
+        //songInfo.transform.Find("ApproachRate").gameObject.GetComponent<TextMeshProUGUI>().text = "Scroll Speed: " + song["ApproachRate"];
+
 
     }
 
@@ -99,14 +100,13 @@ public class SongSelectParser : MonoBehaviour
     {
         audioSource.Stop();
         GenerateSongInfo(song);
-
         if (selectedSong.ContainsKey("AudioFilename") && selectedSong["AudioFilename"] == song["AudioFilename"])
         {
             SceneManager.LoadScene("Game");
         }
         else
         {
-            audioSource.clip = Resources.Load<AudioClip>(song["SongPreview"]);
+            audioSource.clip = Resources.Load<AudioClip>(song["SongFile"]);
             audioSource.Play();
             selectedSong = song;
         }
@@ -117,8 +117,8 @@ public class SongSelectParser : MonoBehaviour
     {
         foreach (string directory in Directory.GetDirectories(".\\Assets\\Resources\\Songs"))
         {
-            // Should only be one .memw file in each song directory
-            string songMap = Directory.GetFiles(directory, "*.memw")[0];
+            // Should only be one .ddr file in each song directory
+            string songMap = Directory.GetFiles(directory, "*.ddr")[0];
 
             // Remove the file path for the mp3 and the extension
             string audioFile = Directory.GetFiles(directory, "*.mp3")[0].Replace(".\\Assets\\Resources\\", "").Replace(".mp3", "");
@@ -128,7 +128,7 @@ public class SongSelectParser : MonoBehaviour
             {
                 ["SongMap"] = songMap,
                 ["Selected"] = "false",
-                ["SongPreview"] = audioFile,
+                ["SongFile"] = audioFile,
                 ["SongLength"] = (songLength / 60).ToString() + ":" + (songLength % 60).ToString(),
                 ["CoverPhoto"] = coverFile
             };
@@ -136,8 +136,8 @@ public class SongSelectParser : MonoBehaviour
             StreamReader file = new StreamReader(songMap);
             string line, prevLine = "";
             string[] parts;
-            bool readTimingPoints = false, readHitObject = false;
-            int maxBpm = 0, startOffset = 0, memSegs = 0;
+            bool readHitObject = false;
+            int startOffset = 0;
             while ((line = file.ReadLine()) != null)
             {
                 parts = line.Split(':');
@@ -145,46 +145,24 @@ public class SongSelectParser : MonoBehaviour
                 {
                     songInfo[parts[0]] = parts[1];
                 }
-                else if (line == "#TimingPoints")
-                {
-                    readTimingPoints = true;
-                }
                 else if (line == "#HitObjects")
                 {
-                    readTimingPoints = false;
                     readHitObject = true;
-                }
-                else if (readTimingPoints)
-                {
-                    parts = line.Split(',');
-                    Int32.TryParse(parts[1], out int bpm);
-                    if (bpm > maxBpm)
-                    {
-                        maxBpm = bpm;
-                    }
-                    if (parts[4] == "1" || parts[4] == "-1")
-                    {
-                        memSegs++;
-                    }
                 }
                 else if (readHitObject)
                 {
                     parts = line.Split(',');
-                    Int32.TryParse(parts[2], out startOffset);
+                    Int32.TryParse(parts[1], out startOffset);
                     readHitObject = false;
                 }
                 prevLine = line;
 
             }
             parts = prevLine.Split(',');
-            Int32.TryParse(parts[2], out int endOffset);
-
-            songInfo["MaxBpm"] = maxBpm.ToString();
+            Int32.TryParse(parts[1], out int endOffset);
 
             int mapLength = endOffset - startOffset;
             songInfo["MapLength"] = ((mapLength / 1000) / 60).ToString() + ":" + ((mapLength % 1000) % 60);
-
-            songInfo["MemorySegments"] = memSegs.ToString();
 
             songs.Add(songInfo);
         }
