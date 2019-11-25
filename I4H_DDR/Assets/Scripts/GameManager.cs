@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     private int difficultyIndex;
     private string[] configuration;
 
+    private int beatTempo;
+
     void LoadConfiguration()
     {
         // Get difficulty and configuration here
@@ -61,6 +63,8 @@ public class GameManager : MonoBehaviour
         noteBaseScore = 10;
 
         difficultyIndex = 1;
+
+        beatTempo = 180;
         
     }
 
@@ -84,7 +88,7 @@ public class GameManager : MonoBehaviour
             {
                 if (difficultyIndex != difficulty)
                 {
-                    noteController.GetComponent<NotesController>().spawnNotes(hitObject, configuration);
+                    noteController.GetComponent<NotesController>().spawnNotes(hitObject, configuration, beatTempo);
                     hitObjectIndex++;
                     difficultyIndex++;
                 }
@@ -114,9 +118,7 @@ public class GameManager : MonoBehaviour
     {
         Dictionary<string, string> song = SongSelectParser.Instance.selectedSong;
         string filename = song["SongMap"];
-        Debug.Log(song["SongFile"]);
         AudioClip audio = Resources.Load<AudioClip>(song["SongFile"]);
-        Debug.Log("Audio Length " + audio.length);
         songLength = audio.length;
         audioSource.PlayOneShot(audio);
 
