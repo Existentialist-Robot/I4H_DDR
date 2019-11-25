@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class NotesController : MonoBehaviour
 {
@@ -74,37 +75,37 @@ public class NotesController : MonoBehaviour
         currentRing.transform.localScale = new Vector2(1.15f, 0.85f);
     }
 
-    public void spawnNotes(HitObject hitObject)
+    public void spawnNotes(HitObject hitObject, string[] configuration)
     {
-        if (hitObject.GetX() == 36)
+        if (hitObject.GetX() == 36 && (((IList)configuration).Contains("5") || ((IList)configuration).Contains("4")))
         {
             spawnLeftArrow();
         }
-        else if (hitObject.GetX() == 109)
+        else if (hitObject.GetX() == 109 && (((IList)configuration).Contains("0") || ((IList)configuration).Contains("4")))
         {
             spawnDownLeftArrow();
         }
-        else if (hitObject.GetX() == 182)
+        else if (hitObject.GetX() == 182 && (((IList)configuration).Contains("6") || ((IList)configuration).Contains("4")))
         {
             spawnUpLeftArrow();
         }
-        else if (hitObject.GetX() == 224)
+        else if (hitObject.GetX() == 224 && (((IList)configuration).Contains("7") || ((IList)configuration).Contains("4")))
         {
             spawnUpArrow();
         }
-        else if (hitObject.GetX() == 288)
+        else if (hitObject.GetX() == 288 && (((IList)configuration).Contains("1") || ((IList)configuration).Contains("4")))
         {
             spawnDownArrow();
         }
-        else if (hitObject.GetX() == 329)
+        else if (hitObject.GetX() == 329 && (((IList)configuration).Contains("8") || ((IList)configuration).Contains("4")))
         {
             spawnUpRightArrow();
         }
-        else if (hitObject.GetX() == 402)
+        else if (hitObject.GetX() == 402 && (((IList)configuration).Contains("2") || ((IList)configuration).Contains("4")))
         {
             spawnDownRightArrow();
         }
-        else if (hitObject.GetX() == 475)
+        else if (hitObject.GetX() == 475 && (((IList)configuration).Contains("3") || ((IList)configuration).Contains("4")))
         {
             spawnRightArrow();
         }

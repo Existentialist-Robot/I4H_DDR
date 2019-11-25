@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public GameObject noteController;
     public AudioSource audioSource;
+    public GameObject arduinoController;
 
     // Used to determine song end
     private float songLength;
@@ -26,6 +27,89 @@ public class GameManager : MonoBehaviour
     public int numGoodHit;
     public int numGreatHit;
     public int numPerfectHit;
+
+    private int difficulty;
+    private int difficultyIndex;
+    private string[] configuration;
+
+    void LoadConfiguration()
+    {
+        // Get difficulty and configuration here
+        difficulty = 4;
+        configuration = new string[] { "1", "5", "3", "7" };
+        arduinoController.GetComponent<ArduinoController>().SendConfiguration(configuration);
+
+        // Change GameState from "Loading" to "Game on"
+        arduinoController.GetComponent<ArduinoController>().UpdateGameState();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        Instance = this;
+        // Change GameState from "Idle" to "Loading"
+        arduinoController.GetComponent<ArduinoController>().UpdateGameState();
+        LoadConfiguration();
+	
+        LoadSong();
+
+        startTime = 0;
+        timer = 0.0f;
+        score = 0;
+        numGoodHit = 0;
+        numGreatHit = 0;
+        numPerfectHit = 0;
+        noteBaseScore = 10;
+
+        difficultyIndex = 1;
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        timer += Time.deltaTime;
+
+        if (startTime == 0)
+        {
+            startTime = DateTime.Now.Ticks;
+        }
+
+        long currentTime;
+        while (hitObjectIndex < hitObjectsList.Count)
+        {
+            currentTime = (DateTime.Now.Ticks - startTime) / TimeSpan.TicksPerMillisecond;
+            HitObject hitObject = hitObjectsList[hitObjectIndex];
+
+            if (currentTime >= hitObject.GetOffset())
+            {
+                if (difficultyIndex != difficulty)
+                {
+                    noteController.GetComponent<NotesController>().spawnNotes(hitObject, configuration);
+                    hitObjectIndex++;
+                    difficultyIndex++;
+                }
+                else
+                {
+                    difficultyIndex = 1;
+                }
+                
+            }
+            else // If the next hitObject does not need to be spawned then break the loop
+            {
+                break;
+            }
+        }
+
+        // If the song is over then go to the RankingPanel
+        if (timer >= songLength)
+        {
+            // Set the game state from "Game on" to "Idle"
+            arduinoController.GetComponent<ArduinoController>().UpdateGameState();
+            SceneManager.LoadScene("Results");
+        }
+
+    }
 
     void LoadSong()
     {
@@ -69,55 +153,24 @@ public class GameManager : MonoBehaviour
         beatmap.Close();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void NoteHit(int hitType)
     {
-        Instance = this;
-	
-        LoadSong();
-
-        startTime = 0;
-        timer = 0.0f;
-        score = 0;
-        numGoodHit = 0;
-        numGreatHit = 0;
-        numPerfectHit = 0;
-        noteBaseScore = 10;
+        if (hitType == 1)
+        {
+            numGoodHit++;
+            score += 100;
+        }
+        else if (hitType == 2)
+        {
+            numGreatHit++;
+            score += 300;
+        }
+        else if (hitType == 3)
+        {
+            numPerfectHit++;
+            score += 500;
+        }
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        timer += Time.deltaTime;
-
-        if (startTime == 0)
-        {
-            startTime = DateTime.Now.Ticks;
-        }
-
-        long currentTime;
-        while (hitObjectIndex < hitObjectsList.Count)
-        {
-            currentTime = (DateTime.Now.Ticks - startTime) / TimeSpan.TicksPerMillisecond;
-            HitObject hitObject = hitObjectsList[hitObjectIndex];
-
-            if (currentTime >= hitObject.GetOffset())
-            {
-                noteController.GetComponent<NotesController>().spawnNotes(hitObject);
-                hitObjectIndex++;
-            }
-            else // If the next hitObject does not need to be spawned then break the loop
-            {
-                break;
-            }
-        }
-
-        // If the song is over then go to the RankingPanel
-        if (timer >= songLength)
-        {
-            SceneManager.LoadScene("Results");
-        }
-
-    }
 }
