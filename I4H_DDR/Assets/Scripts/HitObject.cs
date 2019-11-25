@@ -38,6 +38,10 @@ public class HitObject : MonoBehaviour
 
     public void SetEndOffset(string input)
     {
-        offset = Convert.ToInt32(input);
+        if (input != "")
+        {
+            endOffset = Convert.ToInt32(input);
+        }
+        
     }
 }
