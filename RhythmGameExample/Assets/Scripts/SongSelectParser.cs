@@ -75,11 +75,11 @@ public class SongSelectParser : MonoBehaviour
         songInfo.transform.Find("CoverPhoto").gameObject.GetComponent<RawImage>().texture = Resources.Load<Texture>(song["CoverPhoto"]);
         songInfo.transform.Find("SongLength").gameObject.GetComponent<TextMeshProUGUI>().text = "Song Length: " + song["SongLength"];
         songInfo.transform.Find("MapLength").gameObject.GetComponent<TextMeshProUGUI>().text = "Map Length: " + song["MapLength"];
-        songInfo.transform.Find("Bpm").gameObject.GetComponent<TextMeshProUGUI>().text = "Max BPM: " + song["MaxBpm"];
-        songInfo.transform.Find("MemorySegments").gameObject.GetComponent<TextMeshProUGUI>().text = "Memory Segments: " + song["MemorySegments"];
-        songInfo.transform.Find("HpDrain").gameObject.GetComponent<TextMeshProUGUI>().text = "HP Drain: " + song["HPDrainRate"];
-        songInfo.transform.Find("OverallDifficulty").gameObject.GetComponent<TextMeshProUGUI>().text = "Overall Difficulty: " + song["OverallDifficulty"];
-        songInfo.transform.Find("ApproachRate").gameObject.GetComponent<TextMeshProUGUI>().text = "Scroll Speed: " + song["ApproachRate"];
+        // songInfo.transform.Find("Bpm").gameObject.GetComponent<TextMeshProUGUI>().text = "Max BPM: " + song["MaxBpm"];
+        // songInfo.transform.Find("MemorySegments").gameObject.GetComponent<TextMeshProUGUI>().text = "Memory Segments: " + song["MemorySegments"];
+        // songInfo.transform.Find("HpDrain").gameObject.GetComponent<TextMeshProUGUI>().text = "HP Drain: " + song["HPDrainRate"];
+        // songInfo.transform.Find("OverallDifficulty").gameObject.GetComponent<TextMeshProUGUI>().text = "Overall Difficulty: " + song["OverallDifficulty"];
+        // songInfo.transform.Find("ApproachRate").gameObject.GetComponent<TextMeshProUGUI>().text = "Scroll Speed: " + song["ApproachRate"];
 
     }
 

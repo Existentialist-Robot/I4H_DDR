@@ -34,8 +34,8 @@ public class SongSelectParser : MonoBehaviour
         "Source",
         "Tags",
         "LevelID",
-        "HPDrainRate",
-        "OverallDifficulty",
+        // "HPDrainRate",
+        // "OverallDifficulty",
         "ApproachRate",
 
     };
