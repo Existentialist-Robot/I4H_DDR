@@ -745,7 +745,7 @@ GameObject:
   - component: {fileID: 900747358}
   - component: {fileID: 900747357}
   m_Layer: 5
-  m_Name: LogoScreen
+  m_Name: LogoScreenBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
