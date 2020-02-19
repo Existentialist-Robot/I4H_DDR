@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public GameObject noteController;
     public AudioSource audioSource;
-    public GameObject arduinoController;
 
     // Used to determine song end
     private float songLength;
@@ -32,15 +31,17 @@ public class GameManager : MonoBehaviour
     private int difficultyIndex;
     private string[] configuration;
 
+    private int beatTempo;
+
     void LoadConfiguration()
     {
         // Get difficulty and configuration here
         difficulty = 4;
         configuration = new string[] { "1", "5", "3", "7" };
-        arduinoController.GetComponent<ArduinoController>().SendConfiguration(configuration);
+        //ArduinoController.Instance.SendConfiguration(configuration);
 
         // Change GameState from "Loading" to "Game on"
-        arduinoController.GetComponent<ArduinoController>().UpdateGameState();
+        //ArduinoController.Instance.UpdateGameState();
     }
 
     // Start is called before the first frame update
@@ -48,7 +49,7 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         // Change GameState from "Idle" to "Loading"
-        arduinoController.GetComponent<ArduinoController>().UpdateGameState();
+        //ArduinoController.Instance.UpdateGameState();
         LoadConfiguration();
 	
         LoadSong();
@@ -62,6 +63,8 @@ public class GameManager : MonoBehaviour
         noteBaseScore = 10;
 
         difficultyIndex = 1;
+
+        beatTempo = 180;
         
     }
 
@@ -85,7 +88,7 @@ public class GameManager : MonoBehaviour
             {
                 if (difficultyIndex != difficulty)
                 {
-                    noteController.GetComponent<NotesController>().spawnNotes(hitObject, configuration);
+                    noteController.GetComponent<NotesController>().spawnNotes(hitObject, configuration, beatTempo);
                     hitObjectIndex++;
                     difficultyIndex++;
                 }
@@ -105,7 +108,7 @@ public class GameManager : MonoBehaviour
         if (timer >= songLength)
         {
             // Set the game state from "Game on" to "Idle"
-            arduinoController.GetComponent<ArduinoController>().UpdateGameState();
+            //ArduinoController.Instance.UpdateGameState();
             SceneManager.LoadScene("Results");
         }
 
