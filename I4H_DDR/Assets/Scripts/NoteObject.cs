@@ -29,7 +29,6 @@ public class NoteObject : MonoBehaviour
         Debug.Log($"val: {hit} : {Input.GetKeyDown(keyCode)}");
         if (hit && Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("Success");
             GameManager.Instance.NoteHit(hitType);
             gameObject.SetActive(false);
             Destroy(gameObject);
@@ -45,13 +44,8 @@ public class NoteObject : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(other.tag);
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Collistion tag: " + collision.tag);
         if (collision.tag == "PerfectHitBox")
         {
             hitType = 3;
@@ -62,12 +56,12 @@ public class NoteObject : MonoBehaviour
             hitType = 2;
             hit = true;
         }
-        else if (collision.tag == "GoodHitbox")
+        if (collision.tag == "GoodHitBox")
         {
             hitType = 1;
             hit = true;
         }
-        else if(collision.tag == "despawner")
+        else if (collision.tag == "Despawner")
         {
             Destroy(gameObject);
         }

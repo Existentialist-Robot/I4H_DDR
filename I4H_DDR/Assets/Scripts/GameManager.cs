@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
         {
             // Set the game state from "Game on" to "Idle"
             //ArduinoController.Instance.UpdateGameState();
-            //SceneManager.LoadScene("Results");
+            SceneManager.LoadScene("Results");
         }
 
     }
