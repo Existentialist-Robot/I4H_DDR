@@ -13,13 +13,13 @@ public class Results : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Score.GetComponent<TextMeshProUGUI>().text = "Score             : " + GameManager.Instance.score.ToString();
+        Score.GetComponent<TextMeshProUGUI>().text = "Score             : " + SongManager.Instance.score.ToString();
         Accuracy.GetComponent<TextMeshProUGUI>().text = "Accuracy      : %" +
-            (((GameManager.Instance.numGoodHit + GameManager.Instance.numGreatHit + GameManager.Instance.numPerfectHit) 
-                / GameManager.Instance.hitObjectsList.Count) * 100).ToString();
-        GoodHits.GetComponent<TextMeshProUGUI>().text = "Good Hits     : " + GameManager.Instance.numGoodHit.ToString();
-        GreatHits.GetComponent<TextMeshProUGUI>().text = "Great Hits    : " + GameManager.Instance.numGreatHit.ToString();
-        PerfectHits.GetComponent<TextMeshProUGUI>().text = "Perfect Hits : " + GameManager.Instance.numPerfectHit.ToString();
+            (((SongManager.Instance.numGoodHit + SongManager.Instance.numGreatHit + SongManager.Instance.numPerfectHit) 
+                / SongManager.Instance.hitObjectsList.Count) * 100).ToString();
+        GoodHits.GetComponent<TextMeshProUGUI>().text = "Good Hits     : " + SongManager.Instance.numGoodHit.ToString();
+        GreatHits.GetComponent<TextMeshProUGUI>().text = "Great Hits    : " + SongManager.Instance.numGreatHit.ToString();
+        PerfectHits.GetComponent<TextMeshProUGUI>().text = "Perfect Hits : " + SongManager.Instance.numPerfectHit.ToString();
 
     }
 
