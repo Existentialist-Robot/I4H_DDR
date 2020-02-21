@@ -29,7 +29,7 @@ public class NoteObject : MonoBehaviour
         Debug.Log($"val: {hit} : {Input.GetKeyDown(keyCode)}");
         if (hit && Input.GetKeyDown(KeyCode.F))
         {
-            GameManager.Instance.NoteHit(hitType);
+            SongManager.Instance.NoteHit(hitType);
             gameObject.SetActive(false);
             Destroy(gameObject);
         }

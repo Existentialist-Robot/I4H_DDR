@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class SongManager : MonoBehaviour
 {
-    public static GameManager Instance;
-    public GameObject noteController;
+    public static SongManager Instance;
+    public GameObject notesController;
     public AudioSource audioSource;
 
     // Used to determine song end
@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
             {
                 if (difficultyIndex != difficulty)
                 {
-                    noteController.GetComponent<NotesController>().spawnNotes(hitObject, configuration, beatTempo);
+                    notesController.GetComponent<NotesController>().spawnNotes(hitObject, configuration, beatTempo);
                     hitObjectIndex++;
                     difficultyIndex++;
                 }
