@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LogoScreenMenu : MonoBehaviour
+public class LogoMenu : MonoBehaviour
 {
     public void PlayGame ()
     {
