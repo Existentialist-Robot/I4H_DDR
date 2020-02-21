@@ -115,15 +115,15 @@ public class SongSelectParser : MonoBehaviour
 
     void CreateSongList()
     {
-        foreach (string directory in Directory.GetDirectories(".\\Assets\\Resources\\Songs"))
+        foreach (string directory in Directory.GetDirectories("." + Path.DirectorySeparatorChar + "Assets" + Path.DirectorySeparatorChar + "Resources" + Path.DirectorySeparatorChar + "Songs"))
         {
             // Should only be one .ddr file in each song directory
             string songMap = Directory.GetFiles(directory, "*.ddr")[0];
 
             // Remove the file path for the mp3 and the extension
-            string audioFile = Directory.GetFiles(directory, "*.mp3")[0].Replace(".\\Assets\\Resources\\", "").Replace(".mp3", "");
+            string audioFile = Directory.GetFiles(directory, "*.mp3")[0].Replace("." + Path.DirectorySeparatorChar + "Assets" + Path.DirectorySeparatorChar + "Resources" + Path.DirectorySeparatorChar, "").Replace(".mp3", "");
             int songLength = (int) Resources.Load<AudioClip>(audioFile).length;
-            string coverFile = Directory.GetFiles(directory, "*.png")[0].Replace(".\\Assets\\Resources\\", "").Replace(".png", "").Replace(".jpeg", "");
+            string coverFile = Directory.GetFiles(directory, "*.png")[0].Replace("." + Path.DirectorySeparatorChar + "Assets" + Path.DirectorySeparatorChar + "Resources" + Path.DirectorySeparatorChar, "").Replace(".png", "").Replace(".jpeg", "");
             var songInfo = new Dictionary<string, string>
             {
                 ["SongMap"] = songMap,
