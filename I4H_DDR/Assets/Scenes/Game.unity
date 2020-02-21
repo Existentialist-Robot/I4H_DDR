@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5631a0d57c3d849ef9906b705202d4cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteController: {fileID: 350570215}
+  notesController: {fileID: 350570215}
   audioSource: {fileID: 199874979}
   score: 0
   numGoodHit: 0
