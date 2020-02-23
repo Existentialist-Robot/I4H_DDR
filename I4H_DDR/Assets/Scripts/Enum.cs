@@ -1,4 +1,4 @@
-﻿enum ArrowActual {
+﻿public enum Pad {
     Null = -1,
     TopLeftDiag,
     Top,
@@ -11,12 +11,11 @@
     BottomRightDiag
 }
 
-enum ArrowConceptual {
+public enum Arrow {
     TopLeftDiag,
     Top,
     TopRightDiag,
     Left,
-    Centre,
     Right,
     BottomLeftDiag,
     Bottom,
