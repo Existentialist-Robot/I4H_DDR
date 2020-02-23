@@ -6,9 +6,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     // REMARKS:
-    // The key (ArrowConceptual) is where physical pad placement
-    // The value (ArrowActual) is the actual pad players selected to use, ArrowActual.Null means not selected
-    Dictionary<ArrowConceptual, ArrowActual> ArrowConfiguration = new Dictionary<ArrowConceptual, ArrowActual>();
+    // The key (Arrow) is the 8 possible arrow
+    // The value (Pad) is the actual pad players selected to use, Pad.Null means not selected
+    Dictionary<Arrow, Pad> _arrowConfiguration = new Dictionary<Arrow, Pad>();
 
     // Start is called before the first frame update
     private void Start()
@@ -21,33 +21,37 @@ public class GameManager : MonoBehaviour
     private void InitVariable() {
         // REMARKS: default ArrowConfiguration is 
         // Arrow.Top, Arrow.Left, Arrow.Right, Arrow.Bottom
-        foreach (ArrowConceptual arrowConceptual in (ArrowConceptual[]) Enum.GetValues(typeof(ArrowConceptual))) {
-            switch (arrowConceptual) {
-                case ArrowConceptual.Top: {
-                    ArrowConfiguration[arrowConceptual] = ArrowActual.Top;
+        foreach (Arrow arrow in (Arrow[]) Enum.GetValues(typeof(Arrow))) {
+            switch (arrow) {
+                case Arrow.Top: {
+                    _arrowConfiguration.Add(arrow, Pad.Top);
                     break;
                 }
-                case ArrowConceptual.Left: {
-                    ArrowConfiguration[arrowConceptual] = ArrowActual.Left;
+                case Arrow.Left: {
+                    _arrowConfiguration.Add(arrow, Pad.Left);
                     break;
                 }
-                case ArrowConceptual.Right: {
-                    ArrowConfiguration[arrowConceptual] = ArrowActual.Right;
+                case Arrow.Right: {
+                    _arrowConfiguration.Add(arrow, Pad.Right);
                     break;
                 }
-                case ArrowConceptual.Bottom: {
-                    ArrowConfiguration[arrowConceptual] = ArrowActual.Bottom;
+                case Arrow.Bottom: {
+                    _arrowConfiguration.Add(arrow, Pad.Bottom);
                     break;
                 }
                 default: {
-                    ArrowConfiguration[arrowConceptual] = ArrowActual.Null;
+                    _arrowConfiguration.Add(arrow, Pad.Null);
                     break;
                 }
             }
         }
     }
 
-    public void UpdateArrowConfiguration(int idx) {
+    public Pad GetArrowConfiguration(Arrow arrow) {
+        return _arrowConfiguration[arrow];
+    }
 
+    public void SetArrowConfiguration(Arrow arrow, Pad pad) {
+        _arrowConfiguration[arrow] = pad;
     }
 }
