@@ -34,12 +34,6 @@ public class ConfigurationMenu : MonoBehaviour
 
     public void ArrowButtonOnSelect(int arrowButton) {
         Arrow arrow = (Arrow) arrowButton;
-        
-        // if used by centre
-        if (_gameManager.GetArrowConfiguration(arrow) == Pad.Centre) {
-            // move forward centre button
-            CentreButtonOnClick();
-        }
 
         switch (arrow) {
             case Arrow.TopLeftDiag: {
