@@ -18,6 +18,8 @@ public class ConfigurationMenu : MonoBehaviour
 
     private void Start() {
         _gameManager = FindObjectOfType<GameManager>();
+
+        InitConfigurationPanel();
     }
 
     public void PlayGame ()
@@ -30,6 +32,91 @@ public class ConfigurationMenu : MonoBehaviour
     {
         Debug.Log("Moving from Configuration Scene to previous scene");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
+    private void InitConfigurationPanel() {
+        // loop through gameManager.arrowConfiguration (using Arrow enum)
+        foreach (Arrow arrow in Constants.ARROWS) {
+            Pad assignedPad = _gameManager.GetArrowConfiguration(arrow);
+
+            // the 8 arrows
+            if (assignedPad != Pad.Centre) {
+                switch(arrow) {
+                    case Arrow.TopLeftDiag: {
+                        SetArrowButtonSelected(arrow, (assignedPad == Pad.TopLeftDiag));
+                        break;
+                    }
+                    case Arrow.Top: {
+                        SetArrowButtonSelected(arrow, (assignedPad == Pad.Top));
+                        break;
+                    }
+                    case Arrow.TopRightDiag: {
+                        SetArrowButtonSelected(arrow, (assignedPad == Pad.TopRightDiag));
+                        break;
+                    }
+                    case Arrow.Left: {
+                        SetArrowButtonSelected(arrow, (assignedPad == Pad.Left));
+                        break;
+                    }
+                    case Arrow.Right: {
+                        SetArrowButtonSelected(arrow, (assignedPad == Pad.Right));
+                        break;
+                    }
+                    case Arrow.BottomLeftDiag: {
+                        SetArrowButtonSelected(arrow, (assignedPad == Pad.BottomLeftDiag));
+                        break;
+                    }
+                    case Arrow.Bottom: {
+                        SetArrowButtonSelected(arrow, (assignedPad == Pad.Bottom));
+                        break;
+                    }
+                    case Arrow.BottomRightDiag: {
+                        SetArrowButtonSelected(arrow, (assignedPad == Pad.BottomRightDiag));
+                        break;
+                    }
+                }
+            } else { // the centre button
+                // change centre button to this arrow (UI)
+                SetCentreButtonUI(arrow);
+
+                // set this arrow button to disabled (UI)
+                SetArrowButtonInteractable(arrow, false);
+
+                MoveCentreButtonForward(arrow);
+            }
+        }
+    }
+
+    private void MoveCentreButtonForward(Arrow arrow) {
+        // set the nextCentredArrow to next arrow
+        _nextCentredArrow = arrow + 1;
+        // if nextCentredArrow > last arrow
+        // skip for 1 round
+        if (_nextCentredArrow > Constants.ARROWS.Max()) {
+            _nextCentredArrow = Constants.ARROWS.Min();
+            _resetCentreButton = true;
+        }
+    }
+
+    private void SetCentreButtonUI(Arrow arrow) {
+        centreButton.GetComponent<Image>().sprite = arrowButtons[(int) arrow].transform.Find("Enabled").GetComponent<Image>().sprite;
+    }
+
+    private void SetArrowButtonSelected(Arrow arrow, bool selected) {
+        GameObject arrowButton = arrowButtons[(int) arrow];
+        
+        // set enabled according to "selected"
+        arrowButton.transform.Find("Enabled").gameObject.SetActive(selected);
+        arrowButton.transform.Find("Disabled").gameObject.SetActive(!selected);
+    }
+
+    private void SetArrowButtonInteractable(Arrow arrow, bool interactable) {
+        GameObject arrowButton = arrowButtons[(int) arrow];
+        
+        // set interactable to all button children
+        foreach (Transform child in arrowButton.transform) {
+            child.GetComponent<Button>().interactable = interactable;
+        }
     }
 
     public void ArrowButtonOnSelect(int arrowButton) {
@@ -113,21 +200,14 @@ public class ConfigurationMenu : MonoBehaviour
                         _gameManager.SetArrowConfiguration(arrow, Pad.Centre);
                         
                         // change centre button to this arrow (UI)
-                        centreButton.GetComponent<Image>().sprite = arrowButtons[(int) arrow].transform.Find("Enabled").GetComponent<Image>().sprite;
+                        SetCentreButtonUI(arrow);
 
                         // set this arrow button to disabled (UI)
                         SetArrowButtonInteractable(arrow, false);
                         
-                        arrowCentred = true;
+                        MoveCentreButtonForward(arrow);
                         
-                        // set the nextCentredArrow to next arrow
-                        _nextCentredArrow = arrow + 1;
-                        // if nextCentredArrow > last arrow
-                        // skip for 1 round
-                        if (_nextCentredArrow > Constants.ARROWS.Max()) {
-                            _nextCentredArrow = Constants.ARROWS.Min();
-                            _resetCentreButton = true;
-                        }
+                        arrowCentred = true;
 
                         break;
                     }
@@ -142,15 +222,6 @@ public class ConfigurationMenu : MonoBehaviour
                 // reset nextCentredArrow
                 _nextCentredArrow = Constants.ARROWS.Min();
             }
-        }
-    }
-
-    private void SetArrowButtonInteractable(Arrow arrow, bool interactable) {
-        GameObject arrowButton = arrowButtons[(int) arrow];
-        
-        // set interactable to all button children
-        foreach (Transform child in arrowButton.transform) {
-            child.GetComponent<Button>().interactable = interactable;
         }
     }
 }
