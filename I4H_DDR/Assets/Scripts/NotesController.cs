@@ -21,6 +21,7 @@ public class NotesController : MonoBehaviour
 
     private int beatTempo;
 
+    // TODO: FIX THE OTHER ARROWS SPAWNING
     void spawnLeftArrow()
     {
         //var currentArrow = Instantiate(leftArrow, leftSpawner.position, leftSpawner.rotation);

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.IO.Ports;
 
@@ -7,43 +6,27 @@ public class ArduinoController : MonoBehaviour
 {
     public static ArduinoController Instance;
 
-    public string portName;
-    SerialPort arduino;
-    private string[] configTiles;
+    SerialPort stream = new SerialPort("COM3", 9600);
+
+    int buttonState = 0;
 
     void Start()
     {
         Instance = this;
-        arduino = new SerialPort(portName, 9600);
-        arduino.Open();
+        stream.Open();
     }
 
-    public void UpdateGameState()
+    private void Update()
     {
-        if (arduino.IsOpen)
-        {
-            arduino.Write("9");
-        }
+        string value = stream.ReadLine();
+        Debug.Log(value);
+        buttonState = int.Parse(value);
     }
 
-    public void SendConfiguration(string[] tiles)
+    private void OnGUI()
     {
-        configTiles = tiles;
-        StartCoroutine("SendTiles");
+        string newString = "Connected: " + buttonState;
+        GUI.Label(new Rect(10, 10, 300, 100), newString);
     }
 
-    public void SendTile(string tile)
-    {
-        arduino.Write(tile);
-    }
-
-    IEnumerator SendTiles()
-    {
-        for(int i = 0; i < configTiles.Length; i++)
-        {
-            SendTile(configTiles[i]);
-            yield return new WaitForSeconds(0.1f);
-        }
-        
-    }
 }
